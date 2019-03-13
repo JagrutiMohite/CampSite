@@ -3,31 +3,10 @@
   <v-flex xs6 offset-xs3>
     <div class="white elevation-2">
       <v-toolbar flat dense class="green darken-1" dark>
-      <v-toolbar-title>Register</v-toolbar-title>
+      <v-toolbar-title>Login</v-toolbar-title>
       </v-toolbar>
       <div class="pl-4 pr-4 pt-2 pb-2">
      <v-text-field
-       color="green darken-1"
-        type="first name"
-        name="first name"
-        v-model="FirstName"
-        label="First Name"></v-text-field>
-        <br>
-    <v-text-field
-        color="green darken-1"
-        type="last name"
-        name="last name"
-        v-model="LastName"
-        label="Last Name"></v-text-field>
-        <br>
-     <v-text-field
-        color="green darken-1"
-        type="phone"
-        name="phone"
-        v-model="Phone"
-        label="Phone"></v-text-field>
-        <br>
-    <v-text-field
         color="green darken-1"
         type="email"
         name="email"
@@ -43,7 +22,7 @@
         <br>
         <div class="error" v-html="error" />
         <br>
-        <v-btn class="green darken-1" @click="register" dark>Register</v-btn>
+        <v-btn class="green darken-1" @click="login" dark>Login</v-btn>
         </div>
       </div>
   </v-flex>
@@ -55,21 +34,15 @@ import AuthenticationService from '@/services/AuthenticationService'
 export default {
   data () {
     return {
-      FirstName: '',
-      LastName: '',
-      Phone: '',
       email: '',
       password: '',
       error: null
     }
   },
   methods: {
-    async register () {
+    async login () {
       try {
-        await AuthenticationService.register({
-          FirstName: this.FirstName,
-          LastName: this.LastName,
-          Phone: this.Phone,
+        await AuthenticationService.login({
           email: this.email,
           password: this.password
         })
