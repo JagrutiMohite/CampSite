@@ -25,7 +25,9 @@ module.exports = {
         })
       }
 
-      const isPasswordValid = password ==user.passowrd
+      const isPasswordValid = password == user.password
+      console.log(password, user.password)
+      console.log(isPasswordValid)
       if(!isPasswordValid){
         return res.status(403).send({
           error: 'The Password is incorrect'
