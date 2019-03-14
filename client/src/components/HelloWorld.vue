@@ -1,7 +1,17 @@
 <template>
   <div class="hello">
+     <v-card flat>
+                <v-img
+                  :src="`http://home.bt.com/images/5-best-places-to-go-camping-in-the-uk-136425069414302601-180215150057.jpg`"
+                  :lazy-src="`http://home.bt.com/images/5-best-places-to-go-camping-in-the-uk-136425069414302601-180215150057.jpg`"
+                >
+                  <template v-slot:placeholder>
+                      <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+                  </template>
+                </v-img>
+              </v-card>
     <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
+   <!-- <h2>Essential Links</h2>
     <ul>
       <li>
         <a
@@ -79,7 +89,7 @@
           awesome-vue
         </a>
       </li>
-    </ul>
+    </ul>-->
   </div>
 </template>
 
@@ -88,7 +98,7 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to our CampSite'
     }
   }
 }
@@ -98,6 +108,7 @@ export default {
 <style scoped>
 h1, h2 {
   font-weight: normal;
+  color: green;
 }
 ul {
   list-style-type: none;
