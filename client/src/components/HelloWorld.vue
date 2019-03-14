@@ -4,7 +4,7 @@
                 <v-img
                   :src="`http://home.bt.com/images/5-best-places-to-go-camping-in-the-uk-136425069414302601-180215150057.jpg`"
                   :lazy-src="`http://home.bt.com/images/5-best-places-to-go-camping-in-the-uk-136425069414302601-180215150057.jpg`"
-                >
+                aspect-ratio="1.5">
                   <template v-slot:placeholder>
                       <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
                   </template>
