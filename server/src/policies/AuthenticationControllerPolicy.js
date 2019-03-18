@@ -1,5 +1,4 @@
 const Joi = require('joi')
-const myCustomJoi = Joi.extend(require('joi-phone-number'))
 
 module.exports = {
   register (req, res, next) {
@@ -40,5 +39,64 @@ module.exports = {
       } else {
         next()   
       }
-    }
+    },
+    /* campground (req, res, next) {
+        const schema = {
+        CampName: Joi.string().required(),
+        Price: Joi.number().integer().required(),
+        Image: Joi.string().required(),
+        Description: Joi.string().alphanum().required(),
+        Location: Joi.string().required(),
+        FirstName: Joi.string().required(),
+        LastName: Joi.string().required() 
+      }
+
+      const {error, value} = Joi.validate(req.body, schema)
+
+      if (error) {
+        switch (error.details[0].context.key) {
+          case 'CampName':
+            res.status(400).send({
+              error: 'You must provide a valid CampName'
+            })
+            break
+            case 'CampName':
+            res.status(400).send({
+              error: 'You must provide a valid CampName'
+            })
+            break
+            case 'CampName':
+            res.status(400).send({
+              error: 'You must provide a valid CampName'
+            })
+            break
+            case 'CampName':
+            res.status(400).send({
+              error: 'You must provide a valid CampName'
+            })
+            break
+            case 'CampName':
+            res.status(400).send({
+              error: 'You must provide a valid CampName'
+            })
+            break
+            case 'CampName':
+            res.status(400).send({
+              error: 'You must provide a valid CampName'
+            })
+            break
+            case 'CampName':
+            res.status(400).send({
+              error: 'You must provide a valid CampName'
+            })
+            break
+          default: 
+            res.status(400).send({
+              error: 'Invalid registration information'
+            })
+        }
+      } else {
+        next()   
+      }
+    }*/
   }
