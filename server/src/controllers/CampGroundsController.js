@@ -3,7 +3,7 @@ const {CampGround} = require('../models')
 module.exports = {
   async index (req, res) {
     try{
-      const campgrounds = CampGround.findAll({
+      const campgrounds = await CampGround.findAll({
           limit: 10
       })
         res.send(campgrounds)
@@ -15,7 +15,7 @@ module.exports = {
   },
  async post (req, res) {
     try{
-      const campground = CampGround.create(req.body)
+      const campground = await CampGround.create(req.body)
       res.send(campground)
     }catch (err) {
         res.status(500).send({

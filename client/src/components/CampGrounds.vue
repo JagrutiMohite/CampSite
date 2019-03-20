@@ -3,7 +3,7 @@
   <v-flex xs8>
     <panel title="CampGrounds">
       <div v-for="camp in campgrounds"
-        :key="camp.CampName">
+        :key="camp.id">
         {{camp.CampName}} -
         {{camp.Price}} -
         {{camp.Image}} -
@@ -28,7 +28,7 @@ export default{
     }
   },
   async mounted () {
-    this.campgrounds = await CampGroundsService.index()
+    this.campgrounds = (await CampGroundsService.index()).data
   }
 }
 </script>
