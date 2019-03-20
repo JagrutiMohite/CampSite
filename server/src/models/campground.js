@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const CampGrounds = sequelize.define('CampGrounds', {
+    const CampGround = sequelize.define('CampGround', {
         CampName: {
             type: DataTypes.STRING,
             unique: true
@@ -11,8 +11,10 @@ module.exports = (sequelize, DataTypes) => {
             unique: true
         },
         Description: DataTypes.STRING,
+        YoutubeId: DataTypes.STRING,
+        Comment: DataTypes.TEXT,
         FirstName: DataTypes.STRING,
         LastName: DataTypes.STRING,
     })
-    return CampGrounds
+    return CampGround
   }

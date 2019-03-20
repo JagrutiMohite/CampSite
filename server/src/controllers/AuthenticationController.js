@@ -1,5 +1,4 @@
 const {User} = require('../models')
-const {comment} = require('../models')
 const jwt = require('jsonwebtoken')
 const config = require('../config/config')
 
@@ -55,32 +54,5 @@ module.exports = {
           error: 'Invalid Login Information.'
       })
     }
-},
-async campground (req, res) {
-  try{
-    const campground = CampGrounds.create(req.body)
-    const userJson = campground.toJSON()
-  res.send({
-    campground: userJson
-  })
-  }catch (err) {
-      res.status(400).send({
-        error: 'Campground is already in Use.'
-    })
-  }
-},
-async comment (req, res) {
-  try{
-    const comment = await Comment.create(req.body)
-    const userJson = comment.toJSON()
-  res.send({
-    comment: userJson,
-    token: jwtSignUser(userJson)
-  })
-  }catch (err) {
-      res.status(400).send({
-        error: 'Add new comments.'
-    })
-  }
 }
 }

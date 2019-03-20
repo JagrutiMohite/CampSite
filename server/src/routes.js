@@ -1,5 +1,6 @@
 const AuthenticationController = require('./controllers/AuthenticationController')
 const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
+const CampGroundsController = require('./controllers/CampGroundsController')
 
 module.exports = (app) => {
   app.post('/register',
@@ -9,9 +10,9 @@ module.exports = (app) => {
   app.post('/login',
     AuthenticationController.login)
 
-  app.post('/campground',
-    AuthenticationController.campground)
+  app.get('/campgrounds',
+    CampGroundsController.index)
 
-  app.post('/comment',
-    AuthenticationController.comment)
+  app.post('/campgrounds',
+    CampGroundsController.post)
 }

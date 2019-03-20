@@ -1,4 +1,6 @@
 <template>
+<v-layout column>
+  <v-flex xs8>
   <div class="hello">
      <v-card flat>
                 <v-img
@@ -91,6 +93,8 @@
       </li>
     </ul>-->
   </div>
+  </v-flex>
+</v-layout>
 </template>
 
 <script>

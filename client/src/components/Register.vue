@@ -1,10 +1,7 @@
 <template>
 <v-layout>
   <v-flex xs6 offset-xs3>
-    <div class="white elevation-2">
-      <v-toolbar flat dense class="green darken-1" dark>
-      <v-toolbar-title>Register</v-toolbar-title>
-      </v-toolbar>
+    <panel title="Register">
       <div class="pl-4 pr-4 pt-2 pb-2">
       <form
         name="CampSite-form"
@@ -49,7 +46,7 @@
         <br>
         <v-btn class="green darken-1" @click="register" dark>Register</v-btn>
         </div>
-      </div>
+    </panel>
   </v-flex>
   </v-layout>
 </template>
