@@ -13,6 +13,9 @@ module.exports = (app) => {
   app.get('/campgrounds',
     CampGroundsController.index)
 
+  app.get('/campgrounds/:campgroundId',
+    CampGroundsController.show)
+
   app.post('/campgrounds',
     CampGroundsController.post)
 }

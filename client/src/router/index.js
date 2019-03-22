@@ -4,6 +4,8 @@ import HelloWorld from '@/components/HelloWorld'
 import Register from '@/components/Register'
 import Login from '@/components/Login'
 import CampGrounds from '@/components/CampGrounds'
+import CreateCampground from '@/components/CreateCampground'
+import ViewCampground from '@/components/ViewCampground'
 
 Vue.use(Router)
 
@@ -28,6 +30,16 @@ export default new Router({
       path: '/campgrounds',
       name: 'campgrounds',
       component: CampGrounds
+    },
+    {
+      path: '/campgrounds/create',
+      name: 'campgrounds-create',
+      component: CreateCampground
+    },
+    {
+      path: '/campgrounds/:campgroundId',
+      name: 'campground',
+      component: ViewCampground
     }
   ]
 })

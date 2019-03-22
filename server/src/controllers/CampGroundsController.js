@@ -13,6 +13,16 @@ module.exports = {
       })
     }
   },
+  async show (req, res) {
+    try{
+      const campground = await CampGround.findById(req.params.campgroundId)
+        res.send(campground)
+    }catch (err) {
+      res.status(500).send({
+        error: 'Error occured while trying to view the campground'
+      })
+    }
+  },
  async post (req, res) {
     try{
       const campground = await CampGround.create(req.body)
