@@ -3,9 +3,25 @@ const {CampGround} = require('../models')
 module.exports = {
   async index (req, res) {
     try{
-      const campgrounds = await CampGround.findAll({
+      let campgrounds = null
+      const search = req.query.search
+      if(search) {
+        campgrounds = await CampGround.findAll({
+          where: {
+            $or: [
+              'CampName', 'Location', 'Price'
+            ].map(key => ({
+              [key]: {
+                $like: `%${search}%`
+              }
+            }))
+          }
+        })
+      } else {
+        campgrounds = await CampGround.findAll({
           limit: 10
       })
+      }
         res.send(campgrounds)
     }catch (err) {
       res.status(500).send({

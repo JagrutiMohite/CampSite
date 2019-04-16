@@ -14,25 +14,25 @@
         fab>
         <v-icon>add</v-icon>
        </v-btn>
-      <div v-for="camp in campgrounds"
-        :key="camp.id">
+      <div v-for="campground in campgrounds"
+        :key="campground.id">
         <v-layout>
          <v-flex xs6>
-           <img class="campground-Image" :src="camp.Image"/>
+           <img class="campground-Image" :src="campground.Image"/>
          </v-flex>
          <v-flex xs6>
           <div class="campground-CampName">
-            {{camp.CampName}}
+            {{campground.CampName}}
           </div>
           <div class="campground-Location">
-            {{camp.Location}}
+            {{campground.Location}}
           </div>
           <br>
            <v-btn class="green darken-1"
            @click="navigateTo({
              name: 'campground',
                   params: {
-                    campgroundId: camp.id
+                    campgroundId: campground.id
                   }
                })" dark>
                View More..
@@ -53,13 +53,18 @@ export default{
       campgrounds: null
     }
   },
+  watch: {
+    '$route.query.search': {
+      immediate: true,
+      async handler (value) {
+        this.campgrounds = (await CampGroundsService.index(value)).data
+      }
+    }
+  },
   methods: {
     navigateTo (route) {
       this.$router.push(route)
     }
-  },
-  async mounted () {
-    this.campgrounds = (await CampGroundsService.index()).data
   }
 }
 </script>

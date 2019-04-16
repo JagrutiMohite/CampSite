@@ -12,7 +12,6 @@
           Browse
         </v-btn>
   </v-toolbar-items>
-  <v-spacer></v-spacer>
   <v-toolbar-items>
       <v-btn flat dark v-if="!$store.state.isUserLoggedIn"
       @click="navigateTo({name: 'login'})">
@@ -27,11 +26,45 @@
          Log Out
         </v-btn>
   </v-toolbar-items>
+<v-spacer></v-spacer>
+<v-toolbar-items>
+    <v-text-field
+     dark
+     primary--text
+     label="search your camps"
+     v-model="search">
+    </v-text-field>
+  </v-toolbar-items>
   </v-toolbar>
 </template>
 
 <script>
+
 export default {
+  data () {
+    return {
+      search: ''
+    }
+  },
+  watch: {
+    search (value) {
+      const route = {
+        name: 'campgrounds'
+      }
+      if (this.search !== '') {
+        route.query = {
+          search: this.search
+        }
+      }
+      this.$router.push(route)
+    },
+    '$route.query.search': {
+      immediate: true,
+      handler (value) {
+        this.search = value
+      }
+    }
+  },
   methods: {
     navigateTo (route) {
       this.$router.push(route)
@@ -56,5 +89,15 @@ export default {
 }
 .home:hover {
     color: goldenrod;
+}
+.v-input {
+  font-size: 20px;
+}
+.v-spacer {
+  flex-grow: 0.5!important;
+}
+.primary--text {
+  color: goldenrod;
+  caret-color: goldenrod;
 }
 </style>

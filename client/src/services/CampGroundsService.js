@@ -1,8 +1,12 @@
 import Api from '@/services/Api'
 
 export default {
-  index () {
-    return Api().get('campgrounds')
+  index (search) {
+    return Api().get('campgrounds', {
+      params: {
+        search: search
+      }
+    })
   },
   show (campgroundId) {
     return Api().get(`campgrounds/${campgroundId}`)
