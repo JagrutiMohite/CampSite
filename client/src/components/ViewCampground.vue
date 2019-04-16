@@ -36,6 +36,21 @@
         </v-flex>
     </panel>
     <br>
+    <panel title="Edit Campground">
+        <v-flex>
+           <div class="campgrounds-edit">
+            <v-btn class="green darken-1"
+              @click="navigateTo({
+                  name: 'campground-edit',
+                  params: {
+                    campgroundId: campgrounds.id
+                    }
+                    })"
+                    dark>Edit Campground</v-btn>
+            </div>
+        </v-flex>
+    </panel>
+    <br>
     <panel title="Price">
         <v-flex>
            <div class="campgrounds-Price">
@@ -56,9 +71,9 @@
     </panel>
   </v-flex>
     </v-layout>
- <v-layout column class="mt-4">
-  <v-flex xs8>
-    <you-tube :youtubeId="campgrounds.youtubeId" />
+ <v-layout class="mt-3">
+  <v-flex xs12>
+    <youtube :youtubeId="campgrounds.YoutubeId" />
   </v-flex>
   </v-layout>
   </div>
@@ -71,6 +86,14 @@ export default{
   data () {
     return {
       campgrounds: {}
+    }
+  },
+  props: [
+    'campground'
+  ],
+  methods: {
+    navigateTo (route) {
+      this.$router.push(route)
     }
   },
   components: {

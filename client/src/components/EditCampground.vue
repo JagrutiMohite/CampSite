@@ -8,6 +8,7 @@
         required
         :rules="[required]"
         v-model="campground.FirstName"
+        value: campgrounds.FirstName
         ></v-text-field>
         <br>
         <v-text-field
@@ -81,7 +82,7 @@
         <div class="danger-alert" v-if="error">
           {{error}}
         </div>
-        <v-btn class="green darken-1" @click="create" dark>Add New CAMP</v-btn>
+        <v-btn class="green darken-1" @click="save" dark>SAVE EDITED CAMP</v-btn>
         <br>
     </panel>
   </v-flex>
@@ -109,7 +110,7 @@ export default{
     }
   },
   methods: {
-    async create () {
+    async save () {
       const areAllFieldsFilledIn = Object
         .keys(this.campground)
         .every(key => !!this.campground[key])
@@ -117,11 +118,23 @@ export default{
         this.error = 'Please fill all the required fields.'
         return
       }
+      const campgroundId = this.$store.state.route.params.campgroundId
       try {
-        await CampGroundsService.post(this.campground)
+        await CampGroundsService.put(this.campground)
         this.$router.push({
-          name: 'campgrounds'
+          name: 'campground',
+          params: {
+            campgroundId: campgroundId
+          }
         })
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async mounted () {
+      try {
+        const campgroundId = this.$store.state.route.params.campgroundId
+        this.campground = (await CampGroundsService.show(campgroundId)).data
       } catch (err) {
         console.log(err)
       }

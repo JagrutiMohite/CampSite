@@ -1,14 +1,17 @@
 <template>
-  <v-flex xs8>
+  <v-flex xs12>
     <panel title="View Your Camp">
       <v-flex>
-        <div class="campgrounds-YoutubeId">
-           {{campgrounds.YoutubeId}}
-        </div>
+        <youtube
+          :video-id="youtubeId"
+          :player-width="800"
+          :player-height="300">
+        </youtube>
       </v-flex>
     </panel>
     </v-flex>
 </template>
+
 <script>
 export default {
   props: [
