@@ -15,7 +15,8 @@ module.exports = (app) => {
 
   app.get('/campgrounds/:campgroundId',
     CampGroundsController.show)
-
+  app.put('/campgrounds/:campgroundId',
+    CampGroundsController.put)
   app.post('/campgrounds',
     CampGroundsController.post)
 }

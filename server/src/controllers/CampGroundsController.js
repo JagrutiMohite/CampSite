@@ -32,5 +32,19 @@ module.exports = {
           error: 'Error occure while creating a campground '
       })
     }
+},
+ async put (req, res) {
+   try{
+    const campground = await CampGround.update(req.body, {
+      where: {
+        id: req.params.campgroundId
+      }
+    })
+    res.send(req.body)
+  }catch  (err) {
+      res.status(500).send({
+        error: 'Error occure while updating a campground '
+    })
+  }
 }
 }

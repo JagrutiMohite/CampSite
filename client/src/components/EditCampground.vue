@@ -8,7 +8,6 @@
         required
         :rules="[required]"
         v-model="campground.FirstName"
-        value: campgrounds.FirstName
         ></v-text-field>
         <br>
         <v-text-field
@@ -82,7 +81,7 @@
         <div class="danger-alert" v-if="error">
           {{error}}
         </div>
-        <v-btn class="green darken-1" @click="save" dark>SAVE EDITED CAMP</v-btn>
+        <v-btn dark class="green darken-1" @click="save">SAVE EDITED CAMP</v-btn>
         <br>
     </panel>
   </v-flex>
@@ -91,6 +90,7 @@
 
 <script>
 import CampGroundsService from '@/services/CampGroundsService'
+
 export default{
   data () {
     return {
@@ -111,6 +111,7 @@ export default{
   },
   methods: {
     async save () {
+      this.error = null
       const areAllFieldsFilledIn = Object
         .keys(this.campground)
         .every(key => !!this.campground[key])

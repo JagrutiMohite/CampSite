@@ -9,5 +9,8 @@ export default {
   },
   post (campground) {
     return Api().post('campgrounds', campground)
+  },
+  put (campground) {
+    return Api().put(`campgrounds/${campground.id}`, campground)
   }
 }
