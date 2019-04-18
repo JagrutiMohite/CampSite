@@ -1,24 +1,27 @@
 <template>
   <v-toolbar fixed class="green darken-1" dark>
     <v-toolbar-title class="mr-4">
-    <span
+    <router-link
     class="home"
-    @click="navigateTo({name: 'root'})">
+    tag="span"
+    :to="{
+      name: 'root'
+    }">
     CampSite
-    </span>
+    </router-link>
     </v-toolbar-title>
  <v-toolbar-items>
-      <v-btn flat dark @click="navigateTo({name: 'campgrounds'})">
+      <v-btn flat dark :to="{name: 'campgrounds'}">
           Browse
         </v-btn>
   </v-toolbar-items>
   <v-toolbar-items>
       <v-btn flat dark v-if="!$store.state.isUserLoggedIn"
-      @click="navigateTo({name: 'login'})">
+      :to="{name: 'login'}">
          Login
         </v-btn>
       <v-btn flat dark v-if="!$store.state.isUserLoggedIn"
-      @click="navigateTo({name: 'register'})">
+      :to="{name: 'register'}">
          Sign Up
         </v-btn>
       <v-btn flat dark v-if="$store.state.isUserLoggedIn"
@@ -39,6 +42,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 
 export default {
   data () {
@@ -47,7 +51,7 @@ export default {
     }
   },
   watch: {
-    search (value) {
+    search: _.debounce(async function (value) {
       const route = {
         name: 'campgrounds'
       }
@@ -57,7 +61,7 @@ export default {
         }
       }
       this.$router.push(route)
-    },
+    }, 700),
     '$route.query.search': {
       immediate: true,
       handler (value) {
@@ -66,9 +70,6 @@ export default {
     }
   },
   methods: {
-    navigateTo (route) {
-      this.$router.push(route)
-    },
     logout () {
       this.$store.dispatch('setToken', null)
       this.$store.dispatch('setUser', null)

@@ -29,12 +29,12 @@
           </div>
           <br>
            <v-btn class="green darken-1"
-           @click="navigateTo({
+           :to="{
              name: 'campground',
                   params: {
                     campgroundId: campground.id
                   }
-               })" dark>
+               }" dark>
                View More..
                </v-btn>
          </v-flex>
@@ -59,11 +59,6 @@ export default{
       async handler (value) {
         this.campgrounds = (await CampGroundsService.index(value)).data
       }
-    }
-  },
-  methods: {
-    navigateTo (route) {
-      this.$router.push(route)
     }
   }
 }

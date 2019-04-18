@@ -38,15 +38,39 @@
     <br>
     <panel title="Edit Campground">
         <v-flex>
+          <div class="text-xs-center">
+    <v-rating
+    v-if="isUserLoggedIn"
+     background-color="green darken-1"
+     color="green darken-1"
+    v-model="rating"></v-rating>
+  </div>
            <div class="campgrounds-edit">
-            <v-btn class="green darken-1"
-              @click="navigateTo({
+            <v-btn
+            class="green darken-1"
+            dark
+              :to="{
                   name: 'campground-edit',
-                  params: {
+                  params () {
+                    return {
                     campgroundId: campgrounds.id
                     }
-                    })"
-                    dark>Edit Campground</v-btn>
+                  }
+                }">Edit Campground</v-btn>
+            </div>
+            <div class="campgrounds-edit">
+            <v-btn
+            v-if="isUserLoggedIn && !isBookmarked"
+            class="green darken-1"
+            dark
+            @click="unsetAsBookmark">
+            Bookmark Camp</v-btn>
+            <v-btn
+            v-if="isUserLoggedIn && isBookmarked"
+            class="green darken-1"
+            dark
+            @click="setAsBookmark">
+            Bookmark Camp</v-btn>
             </div>
         </v-flex>
     </panel>
@@ -76,32 +100,76 @@
     <youtube :youtubeId="campgrounds.YoutubeId" />
   </v-flex>
   </v-layout>
+  <v-layout class="mt-3">
+  <v-flex xs12>
+    <comments :Comments="campgrounds.Comments" />
+  </v-flex>
+  </v-layout>
   </div>
 </template>
 
 <script>
 import CampGroundsService from '@/services/CampGroundsService'
 import Youtube from './Youtube'
+import Comments from './Comments'
+import { mapState } from 'vuex'
+import BookmarksService from '@/services/BookmarksService'
 export default{
   data () {
     return {
-      campgrounds: {}
+      campgrounds: {},
+      isBookmarked: false
     }
   },
   props: [
     'campground'
   ],
+  computed: {
+    ...mapState([
+      'isUserLoggedIn'
+    ])
+  },
   methods: {
-    navigateTo (route) {
-      this.$router.push(route)
+    async setAsBookmark () {
+      try {
+        await BookmarksService.post({
+          campgroundId: this.campground.id,
+          userId: this.$store.state.user.id
+        })
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async unsetAsBookmark () {
+      try {
+        await BookmarksService.delete({
+          campgroundId: this.campground.id,
+          userId: this.$store.state.user.id
+        })
+      } catch (err) {
+        console.log(err)
+      }
     }
   },
   components: {
-    Youtube
+    Youtube,
+    Comments
   },
   async mounted () {
     const campgroundId = this.$store.state.route.params.campgroundId
     this.campgrounds = (await CampGroundsService.show(campgroundId)).data
+    if (!this.isUserLoggedIn) {
+      return
+    }
+    try {
+      const bookmark = (await BookmarksService.index({
+        campgroundId: this.campground.id,
+        userId: this.$store.state.user.id
+      })).data
+      this.isBookmarked = !!bookmark
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 </script>

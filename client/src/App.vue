@@ -33,6 +33,6 @@ export default {
 }
 
 .danger-alert {
-  color: rgb(255, 253, 253);
+  color: red
 }
 </style>
