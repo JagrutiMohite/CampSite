@@ -10,7 +10,7 @@ module.exports = {
           UserId: userId
         }
       })
-        res.send(bookmark)
+      res.send(bookmark)
     }catch (err) {
       res.status(500).send({
         error: 'Error occured while trying to fetch the campground'
@@ -19,12 +19,27 @@ module.exports = {
   },
   async post (req, res) {
     try{
-      const bookmark = req.body
-      await Bookmark.create(bookmark)
-        res.send(bookmark)
-    }catch (err) {
+      const {campgroundId, userId} = req.body
+      const bookmark = await Bookmark.findOne({
+        where: {
+          CampGroundId: campgroundId,
+          UserId: userId
+        }
+      })
+      if (bookmark) {
+        return res.status(400).send({
+          error: 'you already have this set as a bookmark'
+        })
+      }
+      const newBookmark = await Bookmark.create({
+        CampGroundId: campgroundId,
+        UserId: userId
+      })
+      res.send(newBookmark)
+    } catch (err) {
+      console.log(err)
       res.status(500).send({
-        error: 'Error occured while trying to creating the bookmark'
+        error: 'an error has occured trying to create the bookmark'
       })
     }
   },

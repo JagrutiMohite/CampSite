@@ -38,14 +38,14 @@
     <br>
     <panel title="Edit Campground">
         <v-flex>
-          <div class="text-xs-center">
-    <v-rating
-    v-if="isUserLoggedIn"
-     background-color="green darken-1"
-     color="green darken-1"
-    v-model="rating"></v-rating>
-  </div>
-           <div class="campgrounds-edit">
+    <div class="text-xs-center">
+      <v-rating
+      v-if="isUserLoggedIn"
+      background-color="green darken-1"
+      color="green darken-1"
+      v-model="rating"></v-rating>
+    </div>
+          <div class="campgrounds-edit">
             <v-btn
             class="green darken-1"
             dark
@@ -60,17 +60,17 @@
             </div>
             <div class="campgrounds-edit">
             <v-btn
-            v-if="isUserLoggedIn && !isBookmarked"
-            class="green darken-1"
-            dark
-            @click="unsetAsBookmark">
-            Bookmark Camp</v-btn>
-            <v-btn
-            v-if="isUserLoggedIn && isBookmarked"
+            v-if="isUserLoggedIn && !bookmark"
             class="green darken-1"
             dark
             @click="setAsBookmark">
-            Bookmark Camp</v-btn>
+            Set Bookmark</v-btn>
+            <v-btn
+            v-if="isUserLoggedIn && bookmark"
+            class="green darken-1"
+            dark
+            @click="unsetAsBookmark">
+            Unset As Bookmark</v-btn>
             </div>
         </v-flex>
     </panel>
@@ -102,7 +102,23 @@
   </v-layout>
   <v-layout class="mt-3">
   <v-flex xs12>
-    <comments :Comments="campgrounds.Comments" />
+    <panel title="Comments">
+      <v-flex>
+    <div class="campground-comment">
+     <v-btn
+            class="green darken-1"
+            dark
+              :to="{
+                  name: 'campground-comment',
+                  params () {
+                    return {
+                    CommentId: commentId,
+                    }
+                  }
+                }">Add Comments</v-btn>
+      </div>
+  </v-flex>
+    </panel>
   </v-flex>
   </v-layout>
   </div>
@@ -112,13 +128,16 @@
 import CampGroundsService from '@/services/CampGroundsService'
 import Youtube from './Youtube'
 import Comments from './Comments'
-import { mapState } from 'vuex'
+import {mapState} from 'vuex'
 import BookmarksService from '@/services/BookmarksService'
+import CommentsService from '@/services/CommentsService'
+
 export default{
   data () {
     return {
       campgrounds: {},
-      isBookmarked: false
+      bookmark: null,
+      rating: 4
     }
   },
   props: [
@@ -129,23 +148,37 @@ export default{
       'isUserLoggedIn'
     ])
   },
+  watch: {
+    async campgrounds () {
+      if (!this.isUserLoggedIn) {
+        return
+      }
+      try {
+        this.bookmark = (await BookmarksService.index({
+          campgroundId: this.campgrounds.id,
+          userId: this.$store.state.user.id
+        })).data
+      } catch (err) {
+        console.log(err)
+      }
+    }
+  },
   methods: {
     async setAsBookmark () {
       try {
-        await BookmarksService.post({
-          campgroundId: this.campground.id,
+        const bookmark = {
+          campgroundId: this.campgrounds.id,
           userId: this.$store.state.user.id
-        })
+        }
+        this.bookmark = (await BookmarksService.post(bookmark)).data
       } catch (err) {
         console.log(err)
       }
     },
     async unsetAsBookmark () {
       try {
-        await BookmarksService.delete({
-          campgroundId: this.campground.id,
-          userId: this.$store.state.user.id
-        })
+        await BookmarksService.delete(this.bookmark.id)
+        this.bookmark = null
       } catch (err) {
         console.log(err)
       }
@@ -158,18 +191,8 @@ export default{
   async mounted () {
     const campgroundId = this.$store.state.route.params.campgroundId
     this.campgrounds = (await CampGroundsService.show(campgroundId)).data
-    if (!this.isUserLoggedIn) {
-      return
-    }
-    try {
-      const bookmark = (await BookmarksService.index({
-        campgroundId: this.campground.id,
-        userId: this.$store.state.user.id
-      })).data
-      this.isBookmarked = !!bookmark
-    } catch (err) {
-      console.log(err)
-    }
+    const commentId = this.$store.state.route.params.commentId
+    this.comments = (await CommentsService.show(commentId)).data
   }
 }
 </script>

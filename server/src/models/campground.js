@@ -16,5 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         FirstName: DataTypes.STRING,
         LastName: DataTypes.STRING,
     })
+    CampGround.associate = function (models){
+    }
     return CampGround
   }

@@ -27,6 +27,12 @@
           <div class="campground-Location">
             {{campground.Location}}
           </div>
+          <div class="campground-Location">
+          <v-rating
+      background-color="green darken-1"
+      color="green darken-1"
+      v-model="rating"></v-rating>
+          </div>
           <br>
            <v-btn class="green darken-1"
            :to="{
@@ -47,10 +53,12 @@
 
 <script>
 import CampGroundsService from '@/services/CampGroundsService'
+
 export default{
   data () {
     return {
-      campgrounds: null
+      campgrounds: null,
+      rating: 4
     }
   },
   watch: {

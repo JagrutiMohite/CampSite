@@ -1,6 +1,7 @@
 [
     {
-        "CampGroundId": 1,
-        "UserId": 1
+        "Text": "Awesome place",
+        "UserFirstName": "Dhaval",
+        "UserId": "1"
     }
 ]

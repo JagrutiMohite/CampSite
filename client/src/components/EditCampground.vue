@@ -123,7 +123,7 @@ export default{
       try {
         await CampGroundsService.put(this.campground)
         this.$router.push({
-          name: 'campground',
+          name: 'campgrounds',
           params: {
             campgroundId: campgroundId
           }
@@ -135,7 +135,7 @@ export default{
     async mounted () {
       try {
         const campgroundId = this.$store.state.route.params.campgroundId
-        this.campground = (await CampGroundsService.show(campgroundId)).data
+        this.campgrounds = (await CampGroundsService.show(campgroundId)).data
       } catch (err) {
         console.log(err)
       }

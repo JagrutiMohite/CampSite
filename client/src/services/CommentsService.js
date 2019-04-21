@@ -1,20 +1,19 @@
 import Api from '@/services/Api'
 
 export default {
-  index (search) {
-    return Api().get('campgrounds', {
+  index (comments) {
+    return Api().get('comments', {
+      params: comments
+    })
+  },
+  show (commentId) {
+    return Api().get('comments', {
       params: {
-        search: search
+        commentId: commentId
       }
     })
   },
-  show (campgroundId) {
-    return Api().get(`campgrounds/${campgroundId}`)
-  },
-  post (campground) {
-    return Api().post('campgrounds', campground)
-  },
-  put (campground) {
-    return Api().put(`campgrounds/${campground.id}`, campground)
+  post (comment) {
+    return Api().post('comments', comment)
   }
 }

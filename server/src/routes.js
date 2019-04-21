@@ -23,7 +23,7 @@ module.exports = (app) => {
   app.post('/campgrounds',
     CampGroundsController.post)
 
-  app.get('/bookmarks',
+    app.get('/bookmarks',
     BookmarksController.index)
   app.post('/bookmarks',
     BookmarksController.post)
@@ -32,6 +32,19 @@ module.exports = (app) => {
 
   app.get('/ratings',
     RatingsController.index)
+  app.post('/ratings',
+    BookmarksController.post)
+  app.delete('/ratings/:ratingId',
+    BookmarksController.delete)
+
   app.get('/comments',
-    CommentsController.index)
+    CommentsController.index),
+  app.get('/comments/:commentId',
+    CommentsController.show)
+  app.post('/comments',
+    CommentsController.post),
+  app.put('/comments',
+    CommentsController.put),
+  app.delete('/comments',
+    CommentsController.delete)
 }
