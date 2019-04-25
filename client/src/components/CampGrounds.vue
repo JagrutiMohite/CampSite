@@ -1,5 +1,8 @@
 <template>
   <v-layout column>
+    <!--<v-flex>
+      <campgrounds-bookmarks />
+    </v-flex>-->
   <v-flex xs8>
     <panel title="CampGrounds">
         <v-btn

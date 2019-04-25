@@ -13,13 +13,13 @@
         <div class="campground-comment">
           <v-btn dark class="green darken-1" @click="save">Submit Your Comment</v-btn>
       </div>
-             <v-btn flat icon color="green darken-1">
+            <!-- <v-btn flat icon color="green darken-1">
         <v-icon>thumb_up</v-icon>
       </v-btn>
 
       <v-btn flat icon color="red lighten-2">
         <v-icon>thumb_down</v-icon>
-      </v-btn>
+      </v-btn>-->
   </v-container>
       </v-flex>
     </panel>
@@ -33,18 +33,21 @@ export default {
   data () {
     return {
       comment: {
-        Text: {}
+        Text: '',
+        UserFirstName: '',
+        campgroundId: this.$store.state.route.params.campgroundId,
+        userId: this.$store.state.user.id
       }
     }
   },
-  props: [
+  /* props: [
     'comments'
-  ],
+  ], */
   methods: {
     async save () {
       // const comment = this.$store.state.route.params.comments
       try {
-        await CommentsService.post(this.comments)
+        await CommentsService.post(this.comment)
         this.$router.push({
           name: 'campground'
         })
@@ -53,16 +56,6 @@ export default {
       }
     },
     async mounted () {
-      try {
-        const comment = {
-          CommentText: this.comment.Text,
-          UserFirstName: this.$store.state.user.FirstName,
-          UserId: this.$store.state.user.id
-        }
-        this.comment = (await CommentsService.index(comment)).data
-      } catch (err) {
-        console.log(err)
-      }
     }
   }
 }

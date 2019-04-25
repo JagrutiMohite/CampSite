@@ -37,9 +37,9 @@ module.exports = (app) => {
   app.delete('/ratings/:ratingId',
     BookmarksController.delete)
 
-  app.get('/comments',
-    CommentsController.index),
   app.get('/comments/:commentId',
+    CommentsController.index),
+  app.get('/comments',
     CommentsController.show)
   app.post('/comments',
     CommentsController.post),

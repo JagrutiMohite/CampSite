@@ -104,7 +104,6 @@
   <v-flex xs12>
     <panel title="Comments">
       <v-flex>
-    <div class="campground-comment">
      <v-btn
             class="green darken-1"
             dark
@@ -112,11 +111,10 @@
                   name: 'campground-comment',
                   params () {
                     return {
-                    CommentId: commentId,
+                    CommentId: commentId
                     }
                   }
                 }">Add Comments</v-btn>
-      </div>
   </v-flex>
     </panel>
   </v-flex>
@@ -137,7 +135,12 @@ export default{
     return {
       campgrounds: {},
       bookmark: null,
-      rating: 4
+      rating: 4,
+      comments: {
+        Text: null,
+        UserFirstName: null,
+        UserId: null
+      }
     }
   },
   props: [
@@ -191,8 +194,11 @@ export default{
   async mounted () {
     const campgroundId = this.$store.state.route.params.campgroundId
     this.campgrounds = (await CampGroundsService.show(campgroundId)).data
-    const commentId = this.$store.state.route.params.commentId
-    this.comments = (await CommentsService.show(commentId)).data
+    this.comments = (await CommentsService.index(campgroundId)).data
+    await CommentsService.show(this.comment)
+    this.$router.push({
+      name: 'campground'
+    })
   }
 }
 </script>
