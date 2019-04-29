@@ -53,7 +53,7 @@
                   name: 'campground-edit',
                   params () {
                     return {
-                    campgroundId: campgrounds.id
+                    campgroundId: campground.id
                     }
                   }
                 }">Edit Campground</v-btn>

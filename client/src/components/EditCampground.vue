@@ -81,7 +81,7 @@
         <div class="danger-alert" v-if="error">
           {{error}}
         </div>
-        <v-btn dark class="green darken-1" @click="save">SAVE EDITED CAMP</v-btn>
+        <v-btn class="green darken-1" @click="save" dark>Edit Your CAMP</v-btn>
         <br>
     </panel>
   </v-flex>
@@ -90,7 +90,6 @@
 
 <script>
 import CampGroundsService from '@/services/CampGroundsService'
-
 export default{
   data () {
     return {
@@ -116,14 +115,14 @@ export default{
         .keys(this.campground)
         .every(key => !!this.campground[key])
       if (!areAllFieldsFilledIn) {
-        this.error = 'Please fill all the required fields.'
+        this.error = 'Please fill in all the required fields.'
         return
       }
       const campgroundId = this.$store.state.route.params.campgroundId
       try {
         await CampGroundsService.put(this.campground)
         this.$router.push({
-          name: 'campgrounds',
+          name: 'campground',
           params: {
             campgroundId: campgroundId
           }
@@ -131,14 +130,14 @@ export default{
       } catch (err) {
         console.log(err)
       }
-    },
-    async mounted () {
-      try {
-        const campgroundId = this.$store.state.route.params.campgroundId
-        this.campgrounds = (await CampGroundsService.show(campgroundId)).data
-      } catch (err) {
-        console.log(err)
-      }
+    }
+  },
+  async mounted () {
+    try {
+      const campgroundId = this.$store.state.route.params.campgroundId
+      this.campground = (await CampGroundsService.show(campgroundId)).data
+    } catch (err) {
+      console.log(err)
     }
   }
 }
