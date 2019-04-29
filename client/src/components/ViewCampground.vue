@@ -129,6 +129,7 @@ import Comments from './Comments'
 import {mapState} from 'vuex'
 import BookmarksService from '@/services/BookmarksService'
 import CommentsService from '@/services/CommentsService'
+import CampgroundHistoryService from '@/services/CampgroundHistoryService'
 
 export default{
   data () {
@@ -148,7 +149,9 @@ export default{
   ],
   computed: {
     ...mapState([
-      'isUserLoggedIn'
+      'isUserLoggedIn',
+      'user',
+      'route'
     ])
   },
   watch: {
@@ -157,10 +160,12 @@ export default{
         return
       }
       try {
-        this.bookmark = (await BookmarksService.index({
-          campgroundId: this.campgrounds.id,
-          userId: this.$store.state.user.id
+        const bookmarks = (await BookmarksService.index({
+          campgroundId: this.campgrounds.id
         })).data
+        if (bookmarks.length) {
+          this.bookmark = bookmarks[0]
+        }
       } catch (err) {
         console.log(err)
       }
@@ -170,8 +175,7 @@ export default{
     async setAsBookmark () {
       try {
         const bookmark = {
-          campgroundId: this.campgrounds.id,
-          userId: this.$store.state.user.id
+          campgroundId: this.campgrounds.id
         }
         this.bookmark = (await BookmarksService.post(bookmark)).data
       } catch (err) {
@@ -192,13 +196,19 @@ export default{
     Comments
   },
   async mounted () {
-    const campgroundId = this.$store.state.route.params.campgroundId
+    const campgroundId = this.route.params.campgroundId
     this.campgrounds = (await CampGroundsService.show(campgroundId)).data
     this.comments = (await CommentsService.index(campgroundId)).data
     await CommentsService.show(this.comment)
     this.$router.push({
       name: 'campground'
     })
+    if (this.isUserLoggedIn) {
+      CampgroundHistoryService.post({
+        campgroundId: campgroundId,
+        userId: this.user.id
+      })
+    }
   }
 }
 </script>

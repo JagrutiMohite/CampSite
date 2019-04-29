@@ -4,7 +4,8 @@ const {
     User,
     Bookmark,
     Rating,
-    Comment
+    Comment,
+    Histories
 } = require('../src/models')
 
 const Promise = require('bluebird')
@@ -13,6 +14,7 @@ const users = require('./users.json')
 const bookmarks = require('./bookmarks.json')
 const ratings = require('./ratings.json')
 const comments = require('./comments.json')
+const histories = require('./history.json')
 
 sequelize.sync({ force: true })
  .then(async function () {
@@ -39,6 +41,11 @@ sequelize.sync({ force: true })
    await Promise.all (
       comments.map(comment => {
          Comment.create(comment)
+      })
+   )
+   await Promise.all (
+      histories.map(history => {
+         Histories.create(history)
       })
    )
     })

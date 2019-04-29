@@ -1,13 +1,13 @@
 <template>
   <v-flex xs12>
-   <panel title="Bookmarks">
+   <panel title="Recently Viewed Camps">
        <v-data-table
       :headers="headers"
-      :items="bookmarks"
+      :items="histories"
       hide-actions
       :pagination.sync="pagination"
     >
-      <template v-slot:items="props">
+     <template v-slot:items="props">
         <td class="text-xs-left">{{ props.item.CampName }}</td>
         <td class="text-xs-left">{{ props.item.Location }}</td>
       </template>
@@ -18,9 +18,10 @@
    </panel>
   </v-flex>
 </template>
+
 <script>
 import {mapState} from 'vuex'
-import BookmarksService from '@/services/BookmarksService'
+import CampgroundHistoryService from '@/services/CampgroundHistoryService'
 export default {
   data () {
     return {
@@ -38,7 +39,7 @@ export default {
         sortBy: 'createdAt',
         descending: true
       },
-      bookmarks: []
+      histories: []
     }
   },
   computed: {
@@ -56,7 +57,7 @@ export default {
   },
   async mounted () {
     if (this.isUserLoggedIn) {
-      this.bookmarks = (await BookmarksService.index()).data
+      this.histories = (await CampgroundHistoryService.index()).data
     }
   }
 }

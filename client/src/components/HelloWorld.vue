@@ -1,6 +1,6 @@
 <template>
 <v-layout column>
-  <v-flex xs8>
+  <v-flex xs10>
   <div class="hello">
      <v-card flat>
                 <v-img

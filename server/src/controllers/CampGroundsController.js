@@ -9,7 +9,7 @@ module.exports = {
         campgrounds = await CampGround.findAll({
           where: {
             $or: [
-              'CampName', 'Location', 'Price', 'Rating'
+              'CampName', 'Location'
             ].map(key => ({
               [key]: {
                 $like: `%${search}%`
