@@ -1,0 +1,19 @@
+# WebProgramming---CAMPSITE
+
+> A Vue.js project
+
+## Features
+User can register and login successfully on campsite using email id and personal details.
+If user is logged in on the site, they can add new camp, view the details, give the ratings, bookmark, unbookmark the camp. 
+On campsite after log in user have suggestion option, they can recommend some or the other main spots arround the camp, even they can suggest the required items for camping.
+Youtube section can guide the user to get the over view of the camp they are going to visit.
+Also if one user is logged in and he/she had added a new camp then that camp will be visible to All.
+Even user can add the comments on other users camp.
+you can search the camp successfully.
+
+## Backend
+Run `npm start` for a dev server. Navigate to `http://localhost:8081/`. The server will automatically reload if you change any of the source files.
+
+## Frontend
+
+Run `npm run dev` for a client-side dev server. Navigate to `http://localhost:8080/`. The app will automatically reload if you change any of the source files.
