@@ -199,7 +199,7 @@ export default{
     const campgroundId = this.route.params.campgroundId
     this.campgrounds = (await CampGroundsService.show(campgroundId)).data
     this.comments = (await CommentsService.index(campgroundId)).data
-    await CommentsService.show(this.comment)
+    this.comment = await CommentsService.show(this.comment)
     this.$router.push({
       name: 'campground'
     })

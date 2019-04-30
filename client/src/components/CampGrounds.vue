@@ -103,6 +103,7 @@ font-style: italic;
 color: yellowgreen
 }
 .campground-Image {
-  width: 100%
+  width: 100%;
+  height: 90%;
 }
 </style>

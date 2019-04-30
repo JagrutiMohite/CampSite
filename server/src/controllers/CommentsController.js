@@ -13,7 +13,7 @@ module.exports = {
   },
   async show (req, res) {
     try{
-      const comment = await Comment.findById(req.body)
+      const comment = await Comment.findById(req.params.commentId)
         res.send(comment)
     }catch (err) {
       res.status(500).send({

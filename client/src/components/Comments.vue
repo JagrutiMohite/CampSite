@@ -13,13 +13,7 @@
         <div class="campground-comment">
           <v-btn dark class="green darken-1" @click="save">Submit Your Comment</v-btn>
       </div>
-            <!-- <v-btn flat icon color="green darken-1">
-        <v-icon>thumb_up</v-icon>
-      </v-btn>
 
-      <v-btn flat icon color="red lighten-2">
-        <v-icon>thumb_down</v-icon>
-      </v-btn>-->
   </v-container>
       </v-flex>
     </panel>
@@ -40,12 +34,8 @@ export default {
       }
     }
   },
-  /* props: [
-    'comments'
-  ], */
   methods: {
     async save () {
-      // const comment = this.$store.state.route.params.comments
       try {
         await CommentsService.post(this.comment)
         this.$router.push({

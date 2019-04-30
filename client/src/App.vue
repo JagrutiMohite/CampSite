@@ -3,12 +3,13 @@
     <v-app>
       <page-header />
       <main>
-      <v-container>
+        <div>
+      <v-flex class="ml-5 mt-5 mr-5 mb-4">
         <router-view/>
-      </v-container>
+      </v-flex>
+      </div>
       </main>
     </v-app>
-    <!--<img src="./assets/logo.png">-->
   </div>
 </template>
 
