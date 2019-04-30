@@ -9,7 +9,11 @@ import 'vuetify/dist/vuetify.min.css'
 import store from '@/store/store'
 import Panel from '@/components/globals/Panel'
 import VueYouTubeEmbed from 'vue-youtube-embed'
+import GSignInButton from 'vue-google-signin-button'
+import FBSignInButton from 'vue-facebook-signin-button'
 
+Vue.use(GSignInButton)
+Vue.use(FBSignInButton)
 Vue.config.productionTip = false
 
 Vue.use(Vuetify)
